@@ -29,9 +29,9 @@ if (isset($update['message'])) {
       sendMsg($update['chat']['id'], "Holap! Vengo a saludar a los nuevos llusers!!!", false, $update['message_id']);
     } else {
       if (isset($update['new_chat_participant']['username'])) {
-        sendMsg($update['chat']['id'], "Welcome @" . $update['new_chat_participant']['username'] . " !\nQuieres unirte a la lista de correo de LibreLabUCM?\nhttps://groups.google.com/forum/#!forum/librelabucm/join \n\n\n/bienvenido_".$update['new_chat_participant']['username']."\n\n Chat random: https://telegram.me/joinchat/ACNdBj4tPjEOdqog8pHTCw", false, $update['message_id']);
+        sendMsg($update['chat']['id'], "Welcome @" . $update['new_chat_participant']['username'] . " !\nQuieres unirte a la lista de correo de LibreLabUCM?\nhttps://groups.google.com/forum/#!forum/librelabucm/join \n\n\n Chat random: https://telegram.me/joinchat/ACNdBj4tPjEOdqog8pHTCw", false, $update['message_id']);
       } else {
-        sendMsg($update['chat']['id'], "Welcome " . $update['new_chat_participant']['first_name'] . " !\nQuieres unirte a la lista de correo de LibreLabUCM?\nhttps://groups.google.com/forum/#!forum/librelabucm/join \n\n\n/bienvenido_".$update['new_chat_participant']['first_name']."\n\n Chat random: https://telegram.me/joinchat/ACNdBj4tPjEOdqog8pHTCw", false, $update['message_id']);
+        sendMsg($update['chat']['id'], "Welcome " . $update['new_chat_participant']['first_name'] . " !\nQuieres unirte a la lista de correo de LibreLabUCM?\nhttps://groups.google.com/forum/#!forum/librelabucm/join \n\n\n Chat random: https://telegram.me/joinchat/ACNdBj4tPjEOdqog8pHTCw", false, $update['message_id']);
       }
     }
   } else if (isset($update['left_chat_participant'])) {

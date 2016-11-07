@@ -66,6 +66,7 @@ if (isset($update['message'])) {
       $textToSend .= "   ✔️ <a href=\"https://telegram.me/joinchat/Apxn5UF37NVSVh2fv2-jIQ\">Telegram Bots</a>\n";
       $textToSend .= "   ✔️ <a href=\"https://telegram.me/joinchat/Ar4agkCACYELE5TZ5AWtAA\">Hacking</a>\n";
       $textToSend .= "   ✔️ <a href=\"https://telegram.me/joinchat/AC_OwEBhVnhFQsd245LBow\">Liberar FDI</a>\n";
+      $textToSend .= "   ✔️ <a href=\"https://telegram.me/joinchat/AIpgP0CeKPelWiGDHsOxTQ\">SCI</a>\n";
       $textToSend .= "";
 
       // $textToSend .= "";

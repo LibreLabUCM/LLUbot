@@ -37,9 +37,9 @@ if (isset($update['message'])) {
       sendMsg($update['chat']['id'], "Holap! Vengo a saludar a los nuevos llusers!!!", false, $update['message_id']);
     } else {
       if (isset($update['new_chat_participant']['username'])) {
-        sendMsg($update['chat']['id'], "Welcome @" . $update['new_chat_participant']['username'] . " !\nQuieres unirte a la lista de correo de LibreLabUCM?\nhttps://groups.google.com/forum/#!forum/librelabucm/join \n\n\n Chat random: https://telegram.me/joinchat/ACNdBj4tPjEOdqog8pHTCw", false, $update['message_id']);
+        sendMsg($update['chat']['id'], "Welcome @" . $update['new_chat_participant']['username'] . " !\nQuieres unirte a la lista de correo de LibreLabUCM?\nhttps://groups.google.com/forum/#!forum/librelabucm/join \n\n\n Chat random: https://telegram.me/joinchat/AC_OwECMttsmiW5vfZjo7g", false, $update['message_id']);
       } else {
-        sendMsg($update['chat']['id'], "Welcome " . $update['new_chat_participant']['first_name'] . " !\nQuieres unirte a la lista de correo de LibreLabUCM?\nhttps://groups.google.com/forum/#!forum/librelabucm/join \n\n\n Chat random: https://telegram.me/joinchat/ACNdBj4tPjEOdqog8pHTCw", false, $update['message_id']);
+        sendMsg($update['chat']['id'], "Welcome " . $update['new_chat_participant']['first_name'] . " !\nQuieres unirte a la lista de correo de LibreLabUCM?\nhttps://groups.google.com/forum/#!forum/librelabucm/join \n\n\n Chat random: https://telegram.me/joinchat/AC_OwECMttsmiW5vfZjo7g", false, $update['message_id']);
       }
     }
   } else if (isset($update['left_chat_participant'])) {
@@ -62,7 +62,7 @@ if (isset($update['message'])) {
     }
     if ($command == "/grupos" || $command == "/grupos@llubot") {
       $textToSend = "<a href=\"https://telegram.me/joinchat/AN341TyY2wfsr32vpSHcSg\">Grupo LLU</a>\n";
-      $textToSend .= "<a href=\"https://telegram.me/joinchat/ACNdBj4tPjEOdqog8pHTCw\">Random</a>\n";
+      $textToSend .= "<a href=\"https://telegram.me/joinchat/AC_OwECMttsmiW5vfZjo7g\">Random</a>\n";
       $textToSend .= "\n <a href=\"http://grasia.fdi.ucm.es/librelab/web/?q=node/7\">Comisiones</a>: \n";
       $textToSend .= "   🔅 Servidor\n";
       $textToSend .= "   🔅 Web\n";

@@ -19,6 +19,14 @@ if (isset($update['message'])) {
     sendMsg("-1001016650503", $update["text"], false);
     exit();
   }
+  
+  if (!empty($update['text']) && $update["chat"]["id"] == "-1001088410143") { // If something is received in "LLUbot Listens"...
+    if (!empty($update['reply_to_message']) && !empty($update['reply_to_message']['forward_from'])) {
+       $r = sendMsg($update['reply_to_message']['forward_from']['id'], $update["text"], false);
+       sendMsg($update["chat"]["id"], "<pre>".json_encode($r, JSON_PRETTY_PRINT)."</pre>", false, $update['message_id']);
+       exit();
+    }
+  }
 
   if ($update['chat']['type'] === "private") {// If the update is not from a group, forward it to "LLUbot Listens" group to be handled there
     forwardMsg("-1001088410143", $update['chat']['id'], $update['message_id']);
@@ -90,7 +98,7 @@ function forwardMsg($chat_id, $from_chat_id, $message_id, $disable_notification 
             'message_id' => $message_id
          )
       );
-   return json_encode($r, true);
+   return json_decode($r);
 }
 
 function sendMsg($id, $text, $keyboard = null, $reply_to_message_id = "0", $disable_web_page_preview = false) {
@@ -127,7 +135,7 @@ function sendMsg($id, $text, $keyboard = null, $reply_to_message_id = "0", $disa
          )
       );
    }
-
+   return json_decode($r);
 }
 
 function sendApiRequest($method, $params = array()) {

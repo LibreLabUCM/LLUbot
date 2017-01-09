@@ -76,6 +76,7 @@ if (isset($update['message'])) {
       $textToSend .= "   ✔️ <a href=\"https://t.me/joinchat/Ar4agkCACYELE5TZ5AWtAA\">Security Team</a>\n";
       $textToSend .= "   ✔️ <a href=\"https://t.me/joinchat/AC_OwEBhVnhFQsd245LBow\">Liberar FDI</a>\n";
       $textToSend .= "   ✔️ <a href=\"https://t.me/joinchat/AIpgP0CeKPelWiGDHsOxTQ\">SCI</a>\n";
+      $textToSend .= "   ✔️ <a href=\"https://t.me/joinchat/AAAAAD8WrNMwTj9Xlq3OSg\">Minecraft</a>\n";
       $textToSend .= "";
 
       // $textToSend .= "";

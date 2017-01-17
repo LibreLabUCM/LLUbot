@@ -82,6 +82,16 @@ if (isset($update['message'])) {
       // $textToSend .= "";
       sendMsg($update['chat']['id'], $textToSend, false, $update['message_id'], true);
     }
+    if ($command == "/forms" || $command == "/forms@llubot") {
+      $textToSend = "¿Te gustaría proponer un taller, una charla, o un curso?\n";
+      $textToSend .= " 📝 <a href=\"https://goo.gl/forms/VyAXiFfgfDZIj5w43\">¡Coméntanos tus intereses!</a>\n";
+      $textToSend = "\n\n¿Te gustaría realizar alguna actividad en la facultad? Nosotros desde LibreLabUCM podemos ayudarte a organizarlo, reservar aulas, pedir material, ...\n";
+      $textToSend .= " 📝 <a href=\"https://goo.gl/forms/OuNAEh5qaXCLUQbA3\">¡Coméntanos tu actividad!</a>\n";
+      $textToSend .= ""
+
+      // $textToSend .= "";
+      sendMsg($update['chat']['id'], $textToSend, false, $update['message_id'], true);
+    }
     if ($command == "/github" || $command == "/github@llubot") {
       sendMsg($update['chat']['id'], "<a href=\"https://github.com/librelabucm\">Nuestro GitHub!</a>", false, $update['message_id']);
     }

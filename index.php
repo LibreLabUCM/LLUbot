@@ -2,11 +2,20 @@
 ini_set('display_errors','1'); error_reporting(E_ALL);
 date_default_timezone_set('Europe/Madrid');
 
+error_log('Init bot...');
+
 include('config.php');
 include('utils.php');
+include('database.php');
+
 
 if (isset($_GET['setHook'])) {
-  echo sendApiRequest('setwebhook', array('url' => $botHook));
+  $ret = sendApiRequest('setwebhook', array('url' => $botHook));
+  echo '{';
+  foreach ($ret as $key => $value) {
+    echo "'$key':$value,";
+  }
+  echo '}';
   exit;
 }
 
@@ -47,8 +56,6 @@ if (isset($update['message'])) {
     if ($ret['ok']) {
       checkReward($ret['result'], $name, $chat_id);
     }
-    //~ $membersNo = $ret['result']; 
-    //~ sendMsg($chat_id, 'This is the current number of members: ' . $membersNo); 
     
   } else if (isset($update['left_chat_participant'])) {
     if (isset($update['left_chat_participant']['username'])) {
@@ -164,3 +171,5 @@ function sendApiRequest($method, $params = array()) {
    $data = curl_exec($curl);
    return json_decode($data, true);
 }
+
+error_log('Done bot.');

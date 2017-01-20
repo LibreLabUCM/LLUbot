@@ -3,8 +3,9 @@
 
 ## Requirements
  * A web server SSL-encrypted with a public url (apache, nginx, caddy, etc....)
- * php support
+ * PHP
  * curl binding for php (`php5-curl` package in Ubuntu)
+ * SQLite3 for php (`php-sqlite3` package in Ubuntu)
 
 ## Setup
 

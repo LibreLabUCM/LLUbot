@@ -50,11 +50,12 @@ if (isset($update['message'])) {
       sendMsg($update['chat']['id'], "Welcome @" . $name . " !\nQuieres unirte a la lista de correo de LibreLabUCM?\nhttps://groups.google.com/forum/#!forum/librelabucm/join \n\n\n Chat random: https://telegram.me/joinchat/AC_OwECMttsmiW5vfZjo7g", false, $update['message_id']);
     }
     // Solo para el chat de LibreLab:
-    //~if ($chat_id != -1001016650503) return;
     $chat_id = $update['chat']['id'];
-    $ret = sendApiRequest('getChatMembersCount', array('chat_id' => $chat_id));
-    if ($ret['ok']) {
-      checkReward($ret['result'], $name, $chat_id);
+    if ($chat_id == -1001016650503) {
+      $ret = sendApiRequest('getChatMembersCount', array('chat_id' => $chat_id));
+      if ($ret['ok']) {
+        checkReward($ret['result'], $name, $chat_id);
+      }
     }
     
   } else if (isset($update['left_chat_participant'])) {

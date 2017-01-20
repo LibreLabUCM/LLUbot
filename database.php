@@ -1,7 +1,7 @@
 <?php
 
 $db = new SQLite3('llubot.db') or die('Unable to create database');
-
+$pdo = new PDO('sqlite:llubot.db');
 $query = <<<EOD
   CREATE TABLE IF NOT EXISTS MEMBERS_COUNT (
     number INTEGER PRIMARY KEY,

@@ -16,16 +16,18 @@ function multipleOf10($n, $name) {
 }
 
 function registerInDatabase($number, $name) {
-  global $db;
-  $result = $db->querySingle("SELECT * FROM MEMBERS_COUNT WHERE number=$number;");
+  global $db, $pdo;
+  $query = "SELECT * FROM MEMBERS_COUNT WHERE number=$number;";
+  $result = $db->querySingle($query);
+
   if ($result) {
     error_log("Number $number already awarded");
     return false;
   }
   if ($result === NULL) {
     $comment = "'Miembro $number en chat de LLU'";
-    $query = "INSERT INTO MEMBERS_COUNT (number, winner, comment, delivered) VALUES ( $number, '$name', $comment, 0 )";
-    $db->exec($query);
+    $query = $pdo->prepare('INSERT INTO MEMBERS_COUNT (number, winner, comment, delivered) VALUES ( :number, :name, :comment, :delivered )');
+    $query->execute(array('number' => $number, 'name' => $pdo->quote($name), 'comment' => $comment, 'delivered' => 0));
     error_log("Award for no $number member \"$name\"!! ");
     return true;
   }
@@ -35,6 +37,7 @@ function registerInDatabase($number, $name) {
 }
 
 function checkReward($number, $name, $chat_id) {
+  if (!is_int($number)) return;
   if ( ($msgPower = powerOf2($number, $name)) && registerInDatabase($number, $name) )
     sendMsg($chat_id, $msgPower);
   if ( ($msgMultiple = multipleOf10($number, $name)) && registerInDatabase($number, $name) )

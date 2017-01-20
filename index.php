@@ -2,10 +2,20 @@
 ini_set('display_errors','1'); error_reporting(E_ALL);
 date_default_timezone_set('Europe/Madrid');
 
+error_log('Init bot...');
+
 include('config.php');
+include('utils.php');
+include('database.php');
+
 
 if (isset($_GET['setHook'])) {
-  echo sendApiRequest('setwebhook', array('url' => $botHook));
+  $ret = sendApiRequest('setwebhook', array('url' => $botHook));
+  echo '{';
+  foreach ($ret as $key => $value) {
+    echo "'$key':$value,";
+  }
+  echo '}';
   exit;
 }
 
@@ -33,15 +43,21 @@ if (isset($update['message'])) {
   }
 
   if (isset($update['new_chat_participant'])) { // Welcome new users
-    if ($update['new_chat_participant']['id'] == 106784966) {
+    $name = isset($update['new_chat_participant']['username'])? $update['new_chat_participant']['username'] : $update['new_chat_participant']['first_name'];
+    if ($name == 'LLUbot') {
       sendMsg($update['chat']['id'], "Holap! Vengo a saludar a los nuevos llusers!!!", false, $update['message_id']);
     } else {
-      if (isset($update['new_chat_participant']['username'])) {
-        sendMsg($update['chat']['id'], "Welcome @" . $update['new_chat_participant']['username'] . " !\nQuieres unirte a la lista de correo de LibreLabUCM?\nhttps://groups.google.com/forum/#!forum/librelabucm/join \n\n\n Chat random: https://telegram.me/joinchat/AC_OwECMttsmiW5vfZjo7g", false, $update['message_id']);
-      } else {
-        sendMsg($update['chat']['id'], "Welcome " . $update['new_chat_participant']['first_name'] . " !\nQuieres unirte a la lista de correo de LibreLabUCM?\nhttps://groups.google.com/forum/#!forum/librelabucm/join \n\n\n Chat random: https://telegram.me/joinchat/AC_OwECMttsmiW5vfZjo7g", false, $update['message_id']);
+      sendMsg($update['chat']['id'], "Welcome @" . $name . " !\nQuieres unirte a la lista de correo de LibreLabUCM?\nhttps://groups.google.com/forum/#!forum/librelabucm/join \n\n\n Chat random: https://telegram.me/joinchat/AC_OwECMttsmiW5vfZjo7g", false, $update['message_id']);
+    }
+    // Solo para el chat de LibreLab:
+    $chat_id = $update['chat']['id'];
+    if ($chat_id == -1001016650503) {
+      $ret = sendApiRequest('getChatMembersCount', array('chat_id' => $chat_id));
+      if ($ret['ok']) {
+        checkReward($ret['result'], $name, $chat_id);
       }
     }
+    
   } else if (isset($update['left_chat_participant'])) {
     if (isset($update['left_chat_participant']['username'])) {
       sendMsg($update['chat']['id'], "Bye @" . $update['left_chat_participant']['username'] . " :(", false, $update['message_id']);
@@ -99,7 +115,7 @@ if (isset($update['message'])) {
 
 
 function forwardMsg($chat_id, $from_chat_id, $message_id, $disable_notification = true) {
-   $r = sendApiRequest('forwardMessage',
+   return sendApiRequest('forwardMessage',
          array(
             'chat_id' => $chat_id,
             'from_chat_id' => $from_chat_id,
@@ -107,7 +123,6 @@ function forwardMsg($chat_id, $from_chat_id, $message_id, $disable_notification 
             'message_id' => $message_id
          )
       );
-   return json_decode($r);
 }
 
 function sendMsg($id, $text, $keyboard = null, $reply_to_message_id = "0", $disable_web_page_preview = false) {
@@ -144,7 +159,7 @@ function sendMsg($id, $text, $keyboard = null, $reply_to_message_id = "0", $disa
          )
       );
    }
-   return json_decode($r);
+   return $r;
 }
 
 function sendApiRequest($method, $params = array()) {
@@ -154,5 +169,8 @@ function sendApiRequest($method, $params = array()) {
        CURLOPT_URL => 'https://api.telegram.org/bot'. TOKEN . '/' . $method . '?' . http_build_query($params),
        CURLOPT_SSL_VERIFYPEER => false
    ));
-   return curl_exec($curl);
+   $data = curl_exec($curl);
+   return json_decode($data, true);
 }
+
+error_log('Done bot.');

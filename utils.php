@@ -9,8 +9,8 @@ function powerOf2($n, $name) {
   return false;
 }
 
-function multipleOf10($n, $name) {
-  if ($n % 10 == 0)
+function multipleOf50($n, $name) {
+  if ($n % 50 == 0)
     return "<strong>¡Enhorabuena $name, eres el miembro número $n!</strong>\n 🍾 ¡¡Fiesta para todos!! 🍻";
   return false;
 }
@@ -40,6 +40,6 @@ function checkReward($number, $name, $chat_id) {
   if (!is_int($number)) return;
   if ( ($msgPower = powerOf2($number, $name)) && registerInDatabase($number, $name) )
     sendMsg($chat_id, $msgPower);
-  if ( ($msgMultiple = multipleOf10($number, $name)) && registerInDatabase($number, $name) )
+  if ( ($msgMultiple = multipleOf50($number, $name)) && registerInDatabase($number, $name) )
     sendMsg($chat_id, $msgMultiple);
 }

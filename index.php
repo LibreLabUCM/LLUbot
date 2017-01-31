@@ -29,7 +29,7 @@ if (isset($update['message'])) {
     sendMsg("-1001016650503", $update["text"], false);
     exit();
   }
-  
+
   if (!empty($update['text']) && $update["chat"]["id"] == "-1001088410143") { // If something is received in "LLUbot Listens"...
     if (!empty($update['reply_to_message']) && !empty($update['reply_to_message']['forward_from'])) {
        $r = sendMsg($update['reply_to_message']['forward_from']['id'], $update["text"], false);
@@ -47,7 +47,7 @@ if (isset($update['message'])) {
     if ($name == 'LLUbot') {
       sendMsg($update['chat']['id'], "Holap! Vengo a saludar a los nuevos llusers!!!", false, $update['message_id']);
     } else {
-      sendMsg($update['chat']['id'], "Welcome @" . $name . " !\nQuieres unirte a la lista de correo de LibreLabUCM?\nhttps://groups.google.com/forum/#!forum/librelabucm/join \n\n\n Chat random: https://telegram.me/joinchat/AC_OwECMttsmiW5vfZjo7g", false, $update['message_id']);
+      sendMsg($update['chat']['id'], "Welcome @" . $name . " !\n\nQuieres unirte a la lista de correo de LibreLabUCM?\nhttps://groups.google.com/forum/#!forum/librelabucm/join \nChat para temas random: https://telegram.me/joinchat/AC_OwECMttsmiW5vfZjo7g", false, $update['message_id'], true);
     }
     // Solo para el chat de LibreLab:
     $chat_id = $update['chat']['id'];
@@ -57,7 +57,7 @@ if (isset($update['message'])) {
         checkReward($ret['result'], $name, $chat_id);
       }
     }
-    
+
   } else if (isset($update['left_chat_participant'])) {
     if (isset($update['left_chat_participant']['username'])) {
       sendMsg($update['chat']['id'], "Bye @" . $update['left_chat_participant']['username'] . " :(", false, $update['message_id']);

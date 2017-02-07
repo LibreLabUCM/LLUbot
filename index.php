@@ -69,14 +69,18 @@ if (isset($update['message'])) {
   // Some commands
   if (!empty($update['text'])) {
     $command = strtolower($update['text']);
+    error_log("Received command: $command");
+    $commandWithoutLLubot = strstr($command, '@llubot', true);
+    $command = ($commandWithoutLLubot)? $commandWithoutLLubot : $command;
+    error_log("Processed command: $command");
 
-    if ($command == "/mailinglist" || $command == "/mailinglist@llubot") {
+    if ($command == "/mailinglist" || $command == "/listacorreo") {
       sendMsg($update['chat']['id'], "<a href=\"https://groups.google.com/forum/#!forum/librelabucm/join\">Lista de correo</a>", false, $update['message_id']);
     }
-    if ($command == "/web" || $command == "/web@llubot") {
+    elseif ($command == "/web") {
       sendMsg($update['chat']['id'], "<a href=\"www.librelabucm.org\">LLu Web</a>", false, $update['message_id']);
     }
-    if ($command == "/grupos" || $command == "/grupos@llubot") {
+    elseif ($command == "/grupos" || $command == "/groups") {
       $textToSend = "<a href=\"https://t.me/joinchat/AN341TyY2wfsr32vpSHcSg\">Grupo LLU</a>\n";
       $textToSend .= "<a href=\"https://t.me/librelabucm\">Canal de noticias de LLU</a>\n";
       $textToSend .= "#<a href=\"https://t.me/joinchat/AC_OwECMttsmiW5vfZjo7g\">Random</a>(offtopic)\n";
@@ -93,19 +97,16 @@ if (isset($update['message'])) {
       $textToSend .= "   ✔️ <a href=\"https://t.me/joinchat/AC_OwEBhVnhFQsd245LBow\">Liberar FDI</a>\n";
       $textToSend .= "   ✔️ <a href=\"https://t.me/joinchat/AIpgP0CeKPelWiGDHsOxTQ\">SCI</a>\n";
       $textToSend .= "   ✔️ <a href=\"https://t.me/joinchat/AAAAAD8WrNMwTj9Xlq3OSg\">Minecraft</a>\n";
-      $textToSend .= "";
-
-      // $textToSend .= "";
       sendMsg($update['chat']['id'], $textToSend, false, $update['message_id'], true);
     }
-    if ($command == "/forms" || $command == "/forms@llubot") {
+    elseif ($command == "/forms" || $command == "/formularios") {
       $textToSend = "¿Te gustaría proponer un taller, una charla, o un curso?\n";
       $textToSend .= " 📝 <a href=\"https://goo.gl/forms/VyAXiFfgfDZIj5w43\">¡Coméntanos tus intereses!</a>\n";
       $textToSend .= "\n\n¿Te gustaría realizar alguna actividad en la facultad? Nosotros desde LibreLabUCM podemos ayudarte a organizarlo, reservar aulas, pedir material, ...\n";
       $textToSend .= " 📝 <a href=\"https://goo.gl/forms/OuNAEh5qaXCLUQbA3\">¡Coméntanos tu actividad!</a>\n";
       sendMsg($update['chat']['id'], $textToSend, false, $update['message_id'], true);
     }
-    if ($command == "/github" || $command == "/github@llubot") {
+    elseif ($command == "/github") {
       sendMsg($update['chat']['id'], "<a href=\"https://github.com/librelabucm\">Nuestro GitHub!</a>", false, $update['message_id']);
     }
   }

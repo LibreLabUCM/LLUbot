@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 function powerOf2($n, $name) {
   if ($n != 0 && ($n & ($n - 1)) == 0) {
@@ -42,4 +42,9 @@ function checkReward($number, $name, $chat_id) {
     sendMsg($chat_id, $msgPower);
   if ( ($msgMultiple = multipleOf50($number, $name)) && registerInDatabase($number, $name) )
     sendMsg($chat_id, $msgMultiple);
+}
+
+# generic URI format -> scheme:[//[user:password@]host[:port]][/]path[?query][#fragment]
+function isURIScheme($str) {
+  return (preg_match('/.+[:\/\/].+/', $str) === 1);
 }

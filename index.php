@@ -8,6 +8,7 @@ include('config.php');
 include('utils.php');
 include('database.php');
 
+$available_categories = ['Libros', 'Videos', 'Articulos', 'Peliculas', 'Documentales', 'Otros'];
 
 if (isset($_GET['setHook'])) {
   $ret = sendApiRequest('setwebhook', array('url' => $botHook));
@@ -68,6 +69,7 @@ if (isset($update['message'])) {
 
   // Some commands
   if (!empty($update['text'])) {
+    $chat_id = $update['chat']['id'];
     $command = strtolower($update['text']);
     error_log("Received command: $command");
     $commandWithoutLLubot = strstr($command, '@llubot', true);
@@ -109,11 +111,135 @@ if (isset($update['message'])) {
     elseif ($command == "/github") {
       sendMsg($update['chat']['id'], "<a href=\"https://github.com/librelabucm\">Nuestro GitHub!</a>", false, $update['message_id']);
     }
+    elseif (($category = getCategory($command))) {
+      $query = "SELECT name, URI, comment FROM RECOMMENDATIONS WHERE category = '$category';";
+      //~ $results = $pdo->query($query) or die('db error');
+      $results = $db->query($query) or die('db error');
+      $numr = 0;
+      $ret = '';
+      while ($row = $results->fetchArray(SQLITE3_ASSOC)) {
+        $row_str = '<b>' . $row['name'] . '</b>. ';
+        if ($row['URI']) $row_str .= $row['URI'];
+        if ($row['comment']) $row_str .= ' <i>' . $row['comment'] . '</i>.';
+        $ret .= "~&gt; " . $row_str . "\n";
+        ++$numr;
+        error_log($row_str);
+      }
+      $ret .= "\n";
+      error_log($ret);
+      if ($numr == 0)
+        sendMsg($chat_id, "No hay todavía ninguna recomendación para $category");
+      else
+        sendMsg($chat_id, $ret, null, "0", true);
+    }
+    # format: /recommend "<name>" <category> [URI] "[comment]"
+    elseif (preg_match('/^\/recom/', $command) === 1 ) {
+      $cmd = $update['text'];
+      // Extract arguments from command:
+      $cmd_re = preg_match(
+              '/\/recom\w*\s"([^"]+)"\s([^\s"]+)(\s[^\s"]+)?(\s"[^"]+")?/',
+              $cmd,
+              $matches);
+      $noOfMatches = count($matches);
+      error_log($noOfMatches);
+      error_log(var_dump($matches));
+      if ($cmd_re !== 1 || $noOfMatches < 3) {
+        showHelpCommandRecommend($chat_id);
+        exit(1);
+      }
+      else {
+        $name = trim($matches[1]);
+        $category = strtolower(trim($matches[2]));
+        if (!checkCategoryExists($category)) {
+          showHelpCategoryRecommend($chat_id);
+          exit(1);
+        }
+        $uri = '';
+        $comment = '';
+        if ($noOfMatches > 3) {
+          $uri = trim($matches[3]);
+          if (!isURIScheme($uri)) {
+            showInvalidURI($chat_id);
+            exit(1);
+          }
+          if ($noOfMatches > 4)
+            $comment = trim($matches[4]);
+        }
+        # Now, insert it into database
+        $query = $pdo->prepare('INSERT INTO RECOMMENDATIONS (name, category, uri, comment) VALUES ( ?, ?, ?, ? )');
+        $recommendation_data = array($name, $category, $uri, $comment);
+        $query->execute($recommendation_data);
+        $msg = "Nueva recomendación añadida:\n";
+        $msg .= "  Nombre: $name\n";
+        $msg .= "  Categoría: $category\n";
+        if ($uri) $msg .= "  Enlace donde encontrarlo: $uri\n";
+        if ($comment) $msg .= "  Comentarios: $comment\n";
+        sendMsg($chat_id, $msg, null, $update['message_id'], true);
+      }
+    }
   }
-
-
 }
 
+function getCategory($command) {
+  switch ($command) {
+    case "/libros":
+    case "/books":
+      return 'libros';
+    case "/articulos":
+    case "/articles":
+      return 'articulos';
+    case "/videos":
+      return 'videos';
+    case "/documentales":
+    case "/documentaries":
+      return 'documentales';
+    case "/peliculas":
+    case "/pelis":
+    case "/movies":
+    case "/films":
+      return 'peliculas';
+    case "/otros":
+    case "/others":
+      return 'otros';
+    default:
+      return false;
+  }
+}
+
+function checkCategoryExists($cat) {
+  global $available_categories;
+  foreach ($available_categories as $c) {
+    if (strtolower($c) === $cat) return true;
+  }
+  return false;
+}
+
+function showHelpCommandRecommend($chat_id) {
+  global $available_categories;
+  $str = <<<EOD
+  Ups, formato incorrecto de recomendación (&gt;_&lt;)
+El formato  para añadir recomendaciones es este (ten en cuenta las comillas):
+  /recomendar &lt;"nombre"&gt; &lt;categoria&gt; [URI] ["comentario"]
+
+EOD;
+  $str .= 'La categoría tiene que ser una de estas: ' . join(', ', $available_categories) . '.';
+  $ret = sendMsg($chat_id, $str);
+}
+
+function showHelpCategoryRecommend($chat_id) {
+  global $available_categories;
+  $str = "<b>¡Categoría no reconocida!</b>\n";
+  $str .= 'La categoría tiene que ser una de estas: ' . join(', ', $available_categories) . '.';
+  sendMsg($chat_id, $str);
+}
+
+function showInvalidURI($chat_id) {
+  $str = <<<EOD
+  Me temo que esa localización no tiene pinta de estar en un <b>formato URI válido</b>.
+Por favor, compruébala de nuevo e introduce el comando otra vez.
+EOD;
+  sendMsg($chat_id, $str);
+}
 
 function forwardMsg($chat_id, $from_chat_id, $message_id, $disable_notification = true) {
    return sendApiRequest('forwardMessage',

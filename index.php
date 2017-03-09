@@ -34,7 +34,11 @@ if (isset($update['message'])) {
   if (!empty($update['text']) && $update["chat"]["id"] == "-1001088410143") { // If something is received in "LLUbot Listens"...
     if (!empty($update['reply_to_message']) && !empty($update['reply_to_message']['forward_from'])) {
        $r = sendMsg($update['reply_to_message']['forward_from']['id'], $update["text"], false);
-       sendMsg($update["chat"]["id"], "<pre>".json_encode($r, JSON_PRETTY_PRINT)."</pre>", false, $update['message_id']);
+       if (!empty($r['ok']) && $r['ok']) {
+           sendMsg($update["chat"]["id"], "Sent", false, $update['message_id']);
+       } else {
+           sendMsg($update["chat"]["id"], "<pre>".json_encode($r, JSON_PRETTY_PRINT)."</pre>", false, $update['message_id']);
+       }
        exit();
     }
   }

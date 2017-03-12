@@ -122,8 +122,12 @@ if (isset($update['message'])) {
       $numr = 0;
       $ret = '';
       while ($row = $results->fetchArray(SQLITE3_ASSOC)) {
-        $row_str = '<b>' . $row['name'] . '</b>. ';
-        if ($row['URI']) $row_str .= $row['URI'];
+        if ($row['URI']) {
+          $row_str = '<a href="' . $row['URI'] . '">' . $row['name'] . '</a>. ';
+        } else {
+            $row_str = '<b>' . $row['name'] . '</b>. ';
+        }
+        
         if ($row['comment']) $row_str .= ' <i>' . $row['comment'] . '</i>.';
         $ret .= "~&gt; " . $row_str . "\n";
         ++$numr;

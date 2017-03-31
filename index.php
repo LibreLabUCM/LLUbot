@@ -73,7 +73,6 @@ if (isset($update['message'])) {
   if (!empty($update['text'])) {
     $chat_id = $update['chat']['id'];
     $command = strtolower($update['text']);
-    error_log("Received: $command");
     $commandWithoutLLubot = strstr($command, '@llubot', true);
     $command = ($commandWithoutLLubot)? $commandWithoutLLubot : $command;
 
@@ -115,7 +114,6 @@ if (isset($update['message'])) {
     elseif (preg_match('/^\/delrecom\s([0-9]+)/', $command, $matches)) {
       if ($chat_id === -1001088410143) {
         $recommendationDeleteId = $matches[1];
-        error_log($recommendationDeleteId);
         $query = "DELETE FROM RECOMMENDATIONS WHERE id=$recommendationDeleteId";
         if ($db->query($query))
           sendMsg($chat_id, "Deleted $recommendationDeleteId");
@@ -313,4 +311,3 @@ function sendApiRequest($method, $params = array()) {
    return json_decode($data, true);
 }
 
-error_log('Done bot.');

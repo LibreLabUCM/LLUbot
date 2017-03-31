@@ -2,8 +2,6 @@
 ini_set('display_errors','1'); error_reporting(E_ALL);
 date_default_timezone_set('Europe/Madrid');
 
-error_log('Init bot...');
-
 include('config.php');
 include('utils.php');
 include('database.php');
@@ -75,10 +73,9 @@ if (isset($update['message'])) {
   if (!empty($update['text'])) {
     $chat_id = $update['chat']['id'];
     $command = strtolower($update['text']);
-    error_log("Received command: $command");
+    error_log("Received: $command");
     $commandWithoutLLubot = strstr($command, '@llubot', true);
     $command = ($commandWithoutLLubot)? $commandWithoutLLubot : $command;
-    error_log("Processed command: $command");
 
     if ($command == "/mailinglist" || $command == "/listacorreo") {
       sendMsg($update['chat']['id'], "<a href=\"https://groups.google.com/forum/#!forum/librelabucm/join\">Lista de correo</a>", false, $update['message_id']);
@@ -115,8 +112,19 @@ if (isset($update['message'])) {
     elseif ($command == "/github") {
       sendMsg($update['chat']['id'], "<a href=\"https://github.com/librelabucm\">Nuestro GitHub!</a>", false, $update['message_id']);
     }
+    elseif (preg_match('/^\/delrecom\s([0-9]+)/', $command, $matches)) {
+      if ($chat_id === -1001088410143) {
+        $recommendationDeleteId = $matches[1];
+        error_log($recommendationDeleteId);
+        $query = "DELETE FROM RECOMMENDATIONS WHERE id=$recommendationDeleteId";
+        if ($db->query($query))
+          sendMsg($chat_id, "Deleted $recommendationDeleteId");
+        else 
+          sendMsg($chat_id, "Error");
+      }
+    }
     elseif (($category = getCategory($command))) {
-      $query = "SELECT name, URI, comment FROM RECOMMENDATIONS WHERE category = '$category';";
+      $query = "SELECT id, name, URI, comment FROM RECOMMENDATIONS WHERE category = '$category';";
       //~ $results = $pdo->query($query) or die('db error');
       $results = $db->query($query) or die('db error');
       $numr = 0;
@@ -125,16 +133,15 @@ if (isset($update['message'])) {
         if ($row['URI']) {
           $row_str = '<a href="' . $row['URI'] . '">' . $row['name'] . '</a>. ';
         } else {
-            $row_str = '<b>' . $row['name'] . '</b>. ';
+          $row_str = '<b>' . $row['name'] . '</b>. ';
         }
         
         if ($row['comment']) $row_str .= ' <i>' . $row['comment'] . '</i>.';
+        if ($chat_id === -1001088410143) $row_str = $row['id'].' '.$row_str;
         $ret .= "~&gt; " . $row_str . "\n";
         ++$numr;
-        error_log($row_str);
       }
       $ret .= "\n";
-      error_log($ret);
       if ($numr == 0)
         sendMsg($chat_id, "No hay todavía ninguna recomendación para $category");
       else
@@ -149,8 +156,6 @@ if (isset($update['message'])) {
               $cmd,
               $matches);
       $noOfMatches = count($matches);
-      error_log($noOfMatches);
-      error_log(var_dump($matches));
       if ($cmd_re !== 1 || $noOfMatches < 3) {
         showHelpCommandRecommend($chat_id);
         exit(1);

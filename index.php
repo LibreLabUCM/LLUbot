@@ -76,7 +76,25 @@ if (isset($update['message'])) {
     $commandWithoutLLubot = strstr($command, '@llubot', true);
     $command = ($commandWithoutLLubot)? $commandWithoutLLubot : $command;
 
-    if ($command == "/mailinglist" || $command == "/listacorreo") {
+    if ($command == "/start") {
+      sendMsg($update['chat']['id'], "Hola! Somos LibreLabUCM, la Asociación de Alumnos de Software y Cultura Libre de la Facultad de Informática de la Universidad Complutense de Madrid.\nCon este bot podrás acceder a nuestros /grupos y acceder a otros servicios que ofrecemos. \nPuedes ver mis comandos con /help\n", false, $update['message_id']);
+    } elseif ($command == "/help") {
+      sendMsg($update['chat']['id'], "
+/help - Lista de comandos
+/mailinglist - Link a la lista de correo
+/web - Link a la web
+/grupos - Links a nuestros grupos de trabajo
+/github - Link a nuestro github
+/forms - Links a nuestros formularios
+/recomendar &lt;\"nombre\"&gt; &lt;categoria&gt; [URI] [\"comentario\"] - Recomendar
+/libros - libros recomendados
+/articulos - artículos recomendados
+/videos - videos recomendados
+/documentales - documentales recomendados
+/pelis - peliculas recomendadas
+/otros - otras cosas recomendadas
+", false, $update['message_id']);
+    } elseif ($command == "/mailinglist" || $command == "/listacorreo") {
       sendMsg($update['chat']['id'], "<a href=\"https://groups.google.com/forum/#!forum/librelabucm/join\">Lista de correo</a>", false, $update['message_id']);
     }
     elseif ($command == "/web") {
@@ -112,7 +130,7 @@ if (isset($update['message'])) {
       sendMsg($update['chat']['id'], "<a href=\"https://github.com/librelabucm\">Nuestro GitHub!</a>", false, $update['message_id']);
     }
     elseif (preg_match('/^\/delrecom\s([0-9]+)/', $command, $matches)) {
-      if ($chat_id === -1001088410143) {
+      if ($chat_id === -1001088410143 || $chat_id === 380656716) {
         $recommendationDeleteId = $matches[1];
         $query = "DELETE FROM RECOMMENDATIONS WHERE id=$recommendationDeleteId";
         if ($db->query($query))
@@ -135,7 +153,7 @@ if (isset($update['message'])) {
         }
         
         if ($row['comment']) $row_str .= ' <i>' . $row['comment'] . '</i>.';
-        if ($chat_id === -1001088410143) $row_str = $row['id'].' '.$row_str;
+        if ($chat_id === -1001088410143 || $chat_id === 380656716) $row_str = $row['id'].' '.$row_str;
         $ret .= "~&gt; " . $row_str . "\n";
         ++$numr;
       }

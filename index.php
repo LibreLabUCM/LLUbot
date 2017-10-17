@@ -103,7 +103,6 @@ if (isset($update['message'])) {
     elseif ($command == "/grupos" || $command == "/groups") {
       $textToSend = "<a href=\"https://t.me/joinchat/AN341TyY2wfsr32vpSHcSg\">Grupo LLU</a>\n";
       $textToSend .= "<a href=\"https://t.me/librelabucm\">Canal de noticias de LLU</a>\n";
-      $textToSend .= "#<a href=\"https://t.me/joinchat/AC_OwECMttsmiW5vfZjo7g\">Random</a>(offtopic)\n";
       $textToSend .= "\n <a href=\"http://grasia.fdi.ucm.es/librelab/web/?q=node/7\">Comisiones</a>: \n";
       $textToSend .= "   🔅 Servidor\n";
       $textToSend .= "   🔅 Web\n";
@@ -115,8 +114,13 @@ if (isset($update['message'])) {
       $textToSend .= "   ✔️ <a href=\"https://t.me/joinchat/Apxn5UF37NVSVh2fv2-jIQ\">Telegram Bots</a>\n";
       $textToSend .= "   ✔️ <a href=\"https://t.me/joinchat/Ar4agkCACYELE5TZ5AWtAA\">Security Team</a>\n";
       $textToSend .= "   ✔️ <a href=\"https://t.me/joinchat/AC_OwEBhVnhFQsd245LBow\">Liberar FDI</a>\n";
-      $textToSend .= "   ✔️ <a href=\"https://t.me/joinchat/AIpgP0CeKPelWiGDHsOxTQ\">SCI</a>\n";
       $textToSend .= "   ✔️ <a href=\"https://t.me/joinchat/AAAAAD8WrNMwTj9Xlq3OSg\">Minecraft</a>\n";
+      $textToSend .= "\n Otros: \n";
+      $textToSend .= "   ❔ <a href=\"https://t.me/joinchat/AAAAAEAvkZUS4P0UV5MdCQ\">Grupo contacto externo</a>\n";
+      $textToSend .= "   😸 <a href=\"https://t.me/LibreLab\">Dudas privadas a @LibreLab</a>\n";
+      $textToSend .= "   🤖 <a href=\"https://t.me/LLUbot\">Bot @LLUbot</a>\n";
+      $textToSend .= "   ✔️ <a href=\"https://t.me/LibreLab\">Dudas privadas a @LibreLab</a>\n";
+      $textToSend .= "   🎲 #<a href=\"https://t.me/joinchat/AC_OwECMttsmiW5vfZjo7g\">Random</a>(offtopic)\n";
       sendMsg($update['chat']['id'], $textToSend, false, $update['message_id'], true);
     }
     elseif ($command == "/forms" || $command == "/formularios") {
@@ -135,7 +139,7 @@ if (isset($update['message'])) {
         $query = "DELETE FROM RECOMMENDATIONS WHERE id=$recommendationDeleteId";
         if ($db->query($query))
           sendMsg($chat_id, "Deleted $recommendationDeleteId");
-        else 
+        else
           sendMsg($chat_id, "Error");
       }
     }
@@ -151,7 +155,7 @@ if (isset($update['message'])) {
         } else {
           $row_str = '<b>' . $row['name'] . '</b>. ';
         }
-        
+
         if ($row['comment']) $row_str .= ' <i>' . $row['comment'] . '</i>.';
         if ($chat_id === -1001088410143 || $chat_id === 380656716) $row_str = $row['id'].' '.$row_str;
         $ret .= "~&gt; " . $row_str . "\n";
@@ -328,4 +332,3 @@ function sendApiRequest($method, $params = array()) {
    $data = curl_exec($curl);
    return json_decode($data, true);
 }
-

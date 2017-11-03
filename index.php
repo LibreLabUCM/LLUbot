@@ -119,7 +119,6 @@ if (isset($update['message'])) {
       $textToSend .= "   ❔ <a href=\"https://t.me/joinchat/AAAAAEAvkZUS4P0UV5MdCQ\">Grupo contacto externo</a>\n";
       $textToSend .= "   😸 <a href=\"https://t.me/LibreLab\">Dudas privadas a @LibreLab</a>\n";
       $textToSend .= "   🤖 <a href=\"https://t.me/LLUbot\">Bot @LLUbot</a>\n";
-      $textToSend .= "   ✔️ <a href=\"https://t.me/LibreLab\">Dudas privadas a @LibreLab</a>\n";
       $textToSend .= "   🎲 #<a href=\"https://t.me/joinchat/AC_OwECMttsmiW5vfZjo7g\">Random</a>(offtopic)\n";
       sendMsg($update['chat']['id'], $textToSend, false, $update['message_id'], true);
     }

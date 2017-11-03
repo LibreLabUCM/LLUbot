@@ -115,6 +115,7 @@ if (isset($update['message'])) {
       $textToSend .= "   ✔️ <a href=\"https://t.me/joinchat/Ar4agkCACYELE5TZ5AWtAA\">Security Team</a>\n";
       $textToSend .= "   ✔️ <a href=\"https://t.me/joinchat/AC_OwEBhVnhFQsd245LBow\">Liberar FDI</a>\n";
       $textToSend .= "   ✔️ <a href=\"https://t.me/joinchat/AAAAAD8WrNMwTj9Xlq3OSg\">Minecraft</a>\n";
+      $textToSend .= "   ✔️ <a href=\"https://t.me/joinchat/Apxn5U_5CTcd6qVEyMpffw\">SCI</a>\n";
       $textToSend .= "\n Otros: \n";
       $textToSend .= "   ❔ <a href=\"https://t.me/joinchat/AAAAAEAvkZUS4P0UV5MdCQ\">Grupo contacto externo</a>\n";
       $textToSend .= "   😸 <a href=\"https://t.me/LibreLab\">Dudas privadas a @LibreLab</a>\n";

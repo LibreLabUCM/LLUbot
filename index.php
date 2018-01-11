@@ -101,7 +101,7 @@ if (isset($update['message'])) {
       sendMsg($update['chat']['id'], "<a href=\"www.librelabucm.org\">LLu Web</a>", false, $update['message_id']);
     }
     elseif ($command == "/grupos" || $command == "/groups") {
-      $textToSend = "<a href=\"https://t.me/joinchat/AN341TyY2wfsr32vpSHcSg\">Grupo LLU</a>\n";
+      $textToSend = "<a href=\"https://t.me/joinchat/FrBcTFFTkQQDn-Sx_5yXlw\">Grupo LLU</a>\n";
       $textToSend .= "<a href=\"https://t.me/librelabucm\">Canal de noticias de LLU</a>\n";
       $textToSend .= "\n <a href=\"http://grasia.fdi.ucm.es/librelab/web/?q=node/7\">Comisiones</a>: \n";
       $textToSend .= "   🔅 Servidor\n";
@@ -109,14 +109,14 @@ if (isset($update['message'])) {
       $textToSend .= "   🔅 Comunicación\n";
       $textToSend .= "\n Grupos de trabajo: \n";
       $textToSend .= "   ✔️ <a href=\"https://t.me/joinchat/Btutqwglu5cmJFLPG0L6wg\">Rompiendo Hardware</a>\n";
-      $textToSend .= "   ✔️ <a href=\"https://t.me/joinchat/Apxn5UERfUCmpDAVCkAbdQ\">Install Parties</a>\n";
+      $textToSend .= "   ✔️ <a href=\"https://t.me/joinchat/FrBcTE5WWmanP2spgTZ5HA\">Install Parties</a>\n";
       $textToSend .= "   ✔️ <a href=\"https://t.me/CryptoParty\">CryptoParty</a>\n";
-      $textToSend .= "   ✔️ <a href=\"https://t.me/joinchat/Apxn5UF37NVSVh2fv2-jIQ\">Telegram Bots</a>\n";
+      $textToSend .= "   ✔️ <a href=\"https://t.me/joinchat/FrBcTEtTEXuzzsYnkX1mjA\">Telegram Bots</a>\n";
       $textToSend .= "   ✔️ <a href=\"https://t.me/joinchat/Ar4agkCACYELE5TZ5AWtAA\">Security Team</a>\n";
       $textToSend .= "   ✔️ <a href=\"https://t.me/joinchat/AC_OwEBhVnhFQsd245LBow\">Liberar FDI</a>\n";
-      $textToSend .= "   ✔️ <a href=\"https://t.me/joinchat/AAAAAD8WrNMwTj9Xlq3OSg\">Minecraft</a>\n";
+      $textToSend .= "   ✔️ <a href=\"https://t.me/joinchat/FrBcTFKj1XkSF9He68d2gA\">Minecraft</a>\n";
       $textToSend .= "   ✔️ <a href=\"https://t.me/joinchat/Apxn5U_5CTcd6qVEyMpffw\">SCI</a>\n";
-      $textToSend .= "   ✔️ <a href=\"https://t.me/joinchat/AJ2osUPVDHXNX44euu2cjA\">Debates LibreLab</a>\n";
+      $textToSend .= "   ✔️ <a href=\"https://t.me/joinchat/FrBcTESo5EJNlv8Wh-AV_Q\">Debates LibreLab</a>\n";
       $textToSend .= "\n Otros: \n";
       $textToSend .= "   ❔ <a href=\"https://t.me/joinchat/AAAAAEAvkZUS4P0UV5MdCQ\">Grupo contacto externo</a>\n";
       $textToSend .= "   😸 <a href=\"https://t.me/LibreLab\">Dudas privadas a @LibreLab</a>\n";

@@ -101,9 +101,9 @@ if (isset($update['message'])) {
       sendMsg($update['chat']['id'], "<a href=\"www.librelabucm.org\">LLu Web</a>", false, $update['message_id']);
     }
     elseif ($command == "/grupos" || $command == "/groups") {
-      $textToSend = "<a href=\"https://t.me/joinchat/FrBcTFFTkQQDn-Sx_5yXlw\">Grupo LLU</a>\n";
+      $textToSend = "<a href=\"https://t.me/LLUchat\">Grupo LLU</a>\n";
       $textToSend .= "<a href=\"https://t.me/librelabucm\">Canal de noticias de LLU</a>\n";
-      $textToSend .= "\n <a href=\"http://grasia.fdi.ucm.es/librelab/web/?q=node/7\">Comisiones</a>: \n";
+      $textToSend .= "\n Comisiones: \n";
       $textToSend .= "   🔅 Servidor\n";
       $textToSend .= "   🔅 Web\n";
       $textToSend .= "   🔅 Comunicación\n";
@@ -121,7 +121,7 @@ if (isset($update['message'])) {
       $textToSend .= "   ❔ <a href=\"https://t.me/joinchat/AAAAAEAvkZUS4P0UV5MdCQ\">Grupo contacto externo</a>\n";
       $textToSend .= "   😸 <a href=\"https://t.me/LibreLab\">Dudas privadas a @LibreLab</a>\n";
       $textToSend .= "   🤖 <a href=\"https://t.me/LLUbot\">Bot @LLUbot</a>\n";
-      $textToSend .= "   🎲 #<a href=\"https://t.me/joinchat/AC_OwECMttsmiW5vfZjo7g\">Random</a>(offtopic)\n";
+      //$textToSend .= "   🎲 #<a href=\"https://t.me/joinchat/AC_OwECMttsmiW5vfZjo7g\">Random</a>(offtopic)\n";
       sendMsg($update['chat']['id'], $textToSend, false, $update['message_id'], true);
     }
     elseif ($command == "/forms" || $command == "/formularios") {

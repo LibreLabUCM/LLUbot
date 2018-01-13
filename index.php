@@ -113,7 +113,7 @@ if (isset($update['message'])) {
       $textToSend .= "   ✔️ <a href=\"https://t.me/CryptoParty\">CryptoParty</a>\n";
       $textToSend .= "   ✔️ <a href=\"https://t.me/joinchat/FrBcTEtTEXuzzsYnkX1mjA\">Telegram Bots</a>\n";
       $textToSend .= "   ✔️ <a href=\"https://t.me/joinchat/Ar4agkCACYELE5TZ5AWtAA\">Security Team</a>\n";
-      $textToSend .= "   ✔️ <a href=\"https://t.me/joinchat/AC_OwEBhVnhFQsd245LBow\">Liberar FDI</a>\n";
+      $textToSend .= "   ✔️ <a href=\"https://t.me/joinchat/FrBcTE6XitNjwcP4tiMUzA\">Liberar FDI</a>\n";
       $textToSend .= "   ✔️ <a href=\"https://t.me/joinchat/FrBcTFKj1XkSF9He68d2gA\">Minecraft</a>\n";
       $textToSend .= "   ✔️ <a href=\"https://t.me/joinchat/Apxn5U_5CTcd6qVEyMpffw\">SCI</a>\n";
       $textToSend .= "   ✔️ <a href=\"https://t.me/joinchat/FrBcTESo5EJNlv8Wh-AV_Q\">Debates LibreLab</a>\n";

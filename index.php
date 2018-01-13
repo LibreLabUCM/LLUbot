@@ -103,7 +103,7 @@ if (isset($update['message'])) {
     elseif ($command == "/grupos" || $command == "/groups") {
       $textToSend = "<a href=\"https://t.me/joinchat/FrBcTFFTkQQDn-Sx_5yXlw\">Grupo LLU</a>\n";
       $textToSend .= "<a href=\"https://t.me/librelabucm\">Canal de noticias de LLU</a>\n";
-      $textToSend .= "\n <a href=\"http://grasia.fdi.ucm.es/librelab/web/?q=node/7\">Comisiones</a>: \n";
+      $textToSend .= "\n Comisiones: \n";
       $textToSend .= "   🔅 Servidor\n";
       $textToSend .= "   🔅 Web\n";
       $textToSend .= "   🔅 Comunicación\n";

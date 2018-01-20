@@ -54,7 +54,7 @@ if (isset($update['message'])) {
     }
     // Solo para el chat de LibreLab:
     $chat_id = $update['chat']['id'];
-    if ($chat_id == -1001016650503) {
+    if ($chat_id == -1001364431108) {
       $ret = sendApiRequest('getChatMembersCount', array('chat_id' => $chat_id));
       if ($ret['ok']) {
         checkReward($ret['result'], $name, $chat_id);

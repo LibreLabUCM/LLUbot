@@ -83,6 +83,7 @@ if (isset($update['message'])) {
 /help - Lista de comandos
 /mailinglist - Link a la lista de correo
 /web - Link a la web
+/email - El e-mail de la asociación
 /grupos - Links a nuestros grupos de trabajo
 /github - Link a nuestro github
 /forms - Links a nuestros formularios
@@ -96,6 +97,9 @@ if (isset($update['message'])) {
 ", false, $update['message_id']);
     } elseif ($command == "/mailinglist" || $command == "/listacorreo") {
       sendMsg($update['chat']['id'], "<a href=\"https://groups.google.com/forum/#!forum/librelabucm/join\">Lista de correo</a>", false, $update['message_id']);
+    }
+    elseif ($command == "/email" || $command == "/correo") {
+      sendMsg($update['chat']['id'], "librelab@ucm.es", false, $update['message_id']);
     }
     elseif ($command == "/web") {
       sendMsg($update['chat']['id'], "<a href=\"www.librelabucm.org\">LLu Web</a>", false, $update['message_id']);

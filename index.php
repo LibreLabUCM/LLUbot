@@ -50,7 +50,12 @@ if (isset($update['message'])) {
     if ($name == 'LLUbot') {
       sendMsg($update['chat']['id'], "Holap! Vengo a saludar a los nuevos llusers!!!", false, $update['message_id']);
     } else {
-      sendMsg($update['chat']['id'], "Welcome " . $name . " !\n\nQuieres unirte a la lista de correo de LibreLabUCM?\nhttps://groups.google.com/forum/#!forum/librelabucm/join", false, $update['message_id'], true);
+      sendMsg($update['chat']['id'], "Welcome " . $name . " !" . 
+              "\n\nPor favor, ten en cuenta que para participar en este chat debes cumplir nuestro código de conducta:\n" .
+              "https://librelabucm.org/codigo_de_conducta" .
+              "\n\n¿Quieres unirte a la lista de correo de LibreLabUCM?\n" .
+              "https://groups.google.com/forum/#!forum/librelabucm/join",
+              false, $update['message_id'], true);
     }
     // Solo para el chat de LibreLab:
     $chat_id = $update['chat']['id'];

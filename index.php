@@ -92,6 +92,7 @@ if (isset($update['message'])) {
 /grupos - Links a nuestros grupos de trabajo
 /github - Link a nuestro github
 /forms - Links a nuestros formularios
+/trinity - Link a Trinity y podio
 /recomendar &lt;\"nombre\"&gt; &lt;categoria&gt; [URI] [\"comentario\"] - Recomendar
 /libros - libros recomendados
 /articulos - artículos recomendados

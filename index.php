@@ -219,6 +219,25 @@ if (isset($update['message'])) {
         if ($comment) $msg .= "  Comentarios: $comment\n";
         sendMsg($chat_id, $msg, null, $update['message_id'], true);
       }
+    } elseif ($command == "/trinity") {
+         $trinityBaseUrl = 'https://trinity.librelabucm.org';
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+          CURLOPT_RETURNTRANSFER => 1,
+          CURLOPT_URL => $trinityBaseUrl.'/json?view=scoreboard',
+        ));
+        $resp = curl_exec($curl);
+        curl_close($curl);
+        $resp = json_decode($resp, true);
+        //$msg = print_r($resp, true);
+        $numberUsers = count($resp['standings']);
+        $msg  = "<a href='$trinityBaseUrl/'>Trinity</a>, plataforma CTF de retos. ☠️💻\nPara registrarse es necesario usar un correo @ucm.es (abriremos el registro sin restricción de correo en un futuro).\n\n";
+        $msg .= "Total: $numberUsers usuarios\n";
+        $msg .= "Podio:\n";
+        $msg .= "   🥇{$resp['standings'][0]['score']} | \t<a href='$trinityBaseUrl/user?id={$resp['standings'][0]['user_id']}'>{$resp['standings'][0]['team']}</a>\n";
+        $msg .= "   🥈{$resp['standings'][1]['score']} | \t<a href='$trinityBaseUrl/user?id={$resp['standings'][1]['user_id']}'>{$resp['standings'][1]['team']}</a>\n";
+        $msg .= "   🥉{$resp['standings'][2]['score']} | \t<a href='$trinityBaseUrl/user?id={$resp['standings'][2]['user_id']}'>{$resp['standings'][2]['team']}</a>\n";
+        sendMsg($chat_id, $msg, null, $update['message_id'], true);
     }
   }
 }
@@ -253,7 +272,7 @@ function checkCategoryExists($cat) {
   global $available_categories;
   foreach ($available_categories as $c) {
     if (strtolower($c) === $cat) return true;
-  }
+   }
   return false;
 }
 

@@ -220,24 +220,31 @@ if (isset($update['message'])) {
         if ($comment) $msg .= "  Comentarios: $comment\n";
         sendMsg($chat_id, $msg, null, $update['message_id'], true);
       }
-    } elseif ($command == "/trinity") {
-         $trinityBaseUrl = 'https://trinity.librelabucm.org';
+    } elseif (preg_match('/^\/trinity(?:\@LLUbot)?\s?([0-9]+)?$/', $command, $matches)) {
+        $trinityBaseUrl = 'https://trinity.librelabucm.org';
         $curl = curl_init();
         curl_setopt_array($curl, array(
           CURLOPT_RETURNTRANSFER => 1,
-          CURLOPT_URL => $trinityBaseUrl.'/json?view=scoreboard',
+          CURLOPT_URL => $trinityBaseUrl.'/json?view=scoreboard&user_type=0',
         ));
         $resp = curl_exec($curl);
         curl_close($curl);
         $resp = json_decode($resp, true);
         //$msg = print_r($resp, true);
         $numberUsers = count($resp['standings']);
+        $count = 5;
+        if (!empty($matches[1]) && is_numeric($matches[1])) {
+          $count = (int) $matches[1];
+        }
+        if ($count > 15) $count = 15;
+        $emoji = ['🥇', '🥈', '🥉', '4️⃣', '5️⃣'];
         $msg  = "<a href='$trinityBaseUrl/'>Trinity</a>, plataforma CTF de retos. ☠️💻\nPara registrarse es necesario usar un correo @ucm.es (abriremos el registro sin restricción de correo en un futuro).\n\n";
         $msg .= "Total: $numberUsers usuarios\n";
-        $msg .= "Podio:\n";
-        $msg .= "   🥇{$resp['standings'][0]['score']} | \t<a href='$trinityBaseUrl/user?id={$resp['standings'][0]['user_id']}'>{$resp['standings'][0]['team']}</a>\n";
-        $msg .= "   🥈{$resp['standings'][1]['score']} | \t<a href='$trinityBaseUrl/user?id={$resp['standings'][1]['user_id']}'>{$resp['standings'][1]['team']}</a>\n";
-        $msg .= "   🥉{$resp['standings'][2]['score']} | \t<a href='$trinityBaseUrl/user?id={$resp['standings'][2]['user_id']}'>{$resp['standings'][2]['team']}</a>\n";
+        $msg .= "Podio top $count:\n";
+        for($i = 0; $i < $count; $i++) {
+          $thisemoji = (!empty($emoji[$i])) ? $emoji[$i] : '😄';
+          $msg .= "   {$thisemoji}".str_pad($resp['standings'][$i]['score'], 4, ' ', STR_PAD_LEFT)." | \t<a href='$trinityBaseUrl/user?id={$resp['standings'][$i]['user_id']}'>{$resp['standings'][$i]['team']}</a>\n";
+        }
         sendMsg($chat_id, $msg, null, $update['message_id'], true);
     }
   }

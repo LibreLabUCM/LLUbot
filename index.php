@@ -93,6 +93,7 @@ if (isset($update['message'])) {
 /github - Link a nuestro github
 /forms - Links a nuestros formularios
 /trinity - Link a Trinity y podio
+/redeclipse - Información sobre el servidor de RedEclipse de LibreLabUCM
 /recomendar &lt;\"nombre\"&gt; &lt;categoria&gt; [URI] [\"comentario\"] - Recomendar
 /libros - libros recomendados
 /articulos - artículos recomendados

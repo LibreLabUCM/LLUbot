@@ -268,20 +268,20 @@ if (isset($update['message'])) {
         if ($timeLeft_hours > 0) $timeLeft = $timeLeft_hours . ' hours ' . $timeLeft;
 
         $msg = <<<EOT
-  <b>   RedEclipse   </b>
+🖥🎮 <b>RedEclipse</b> 🔫🔴
 
 <a href="https://redeclipse.librelabucm.org">redeclipse.librelabucm.org ({$data['host']}:{$data['port']})</a>
 {$data['description']}
- Game Mode: $gameMode
- Map: $mapName
- Time Left: ~ $timeLeft
- Version: {$data['versionName']} ({$data['versionbranch']})
- Players: {$data['clients']}/{$data['maxClients']}
+🔅Game Mode: $gameMode
+🔅Map: $mapName
+🔅Time Left: ~ $timeLeft
+🔅Version: {$data['versionName']} ({$data['versionbranch']})
+🔅Players: {$data['clients']}/{$data['maxClients']}
 
 EOT;
         $msg .= "\nPlayers:\n";
         for ($i = 0; $i < count($data['players']); $i++) {
-          $msg .= '   ';
+          $msg .= '  👤';
           $msg .= "{$data['players'][$i]['name']} ";
           if (!empty($data['authNames'][$i]['plain']))
             $msg .= '✔️';
@@ -289,16 +289,16 @@ EOT;
             case 'none':
               break;
             case 'localsupporter':
-              $msg .= ' ';
+              $msg .= '💪';
               break;
             case 'localmoderator':
-              $msg .= ' ';
+              $msg .= '🔨';
               break;
             case 'localoperator':
-              $msg .= ' ';
+              $msg .= '🔧';
               break;
             case 'localadministrator':
-              $msg .= ' ';
+              $msg .= '🔮';
               break;
             default:
               break;

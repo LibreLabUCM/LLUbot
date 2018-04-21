@@ -246,7 +246,66 @@ if (isset($update['message'])) {
           $msg .= "   {$thisemoji}".str_pad($resp['standings'][$i]['score'], 4, ' ', STR_PAD_LEFT)." | \t<a href='$trinityBaseUrl/user?id={$resp['standings'][$i]['user_id']}'>{$resp['standings'][$i]['team']}</a>\n";
         }
         sendMsg($chat_id, $msg, null, $update['message_id'], true);
+    } elseif (preg_match('/^\/redeclipse(?:\@LLUbot)?$/', $command, $matches)) {
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+          CURLOPT_RETURNTRANSFER => 1,
+          CURLOPT_URL => 'https://redflare.ofthings.net/reports',
+        ));
+        $resp = curl_exec($curl);
+        curl_close($curl);
+        $resp = json_decode($resp, true);
+        $msg = json_encode($resp['147.96.25.74:28801'], JSON_PRETTY_PRINT);
+        $data = $resp['147.96.25.74:28801'];
+        $gameMode = ucwords(str_replace('-', ' ', $data['gameMode']));
+        $mapName = ucwords($data['mapName']);
+        $timeLeft_hours = floor($data['timeLeft'] / 3600);
+        $timeLeft_mins = floor($data['timeLeft'] / 60 % 60);
+        $timeLeft_secs = floor($data['timeLeft'] % 60);
+        $timeLeft = $timeLeft_secs . ' seconds';
+        if ($timeLeft_mins > 0) $timeLeft = $timeLeft_mins . ' minutes ' . $timeLeft;
+        if ($timeLeft_hours > 0) $timeLeft = $timeLeft_hours . ' hours ' . $timeLeft;
+
+        $msg = <<<EOT
+  <b>   RedEclipse   </b>
+
+<a href="https://redeclipse.librelabucm.org">redeclipse.librelabucm.org ({$data['host']}:{$data['port']})</a>
+{$data['description']}
+ Game Mode: $gameMode
+ Map: $mapName
+ Time Left: ~ $timeLeft
+ Version: {$data['versionName']} ({$data['versionbranch']})
+ Players: {$data['clients']}/{$data['maxClients']}
+
+EOT;
+        $msg .= "\nPlayers:\n";
+        for ($i = 0; $i < count($data['players']); $i++) {
+          $msg .= '   ';
+          $msg .= "{$data['players'][$i]['name']} ";
+          if (!empty($data['authNames'][$i]['plain']))
+            $msg .= '✔️';
+          switch ($data['players'][$i]['privilege']) {
+            case 'none':
+              break;
+            case 'localsupporter':
+              $msg .= ' ';
+              break;
+            case 'localmoderator':
+              $msg .= ' ';
+              break;
+            case 'localoperator':
+              $msg .= ' ';
+              break;
+            case 'localadministrator':
+              $msg .= ' ';
+              break;
+            default:
+              break;
+          }
+        }
+        sendMsg($chat_id, $msg, null, $update['message_id'], true);
     }
+
   }
 }
 

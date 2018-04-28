@@ -303,6 +303,7 @@ EOT;
             default:
               break;
           }
+          $msg .= "\n";
         }
         sendMsg($chat_id, $msg, null, $update['message_id'], true);
     }

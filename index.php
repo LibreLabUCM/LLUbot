@@ -306,6 +306,46 @@ EOT;
           $msg .= "\n";
         }
         sendMsg($chat_id, $msg, null, $update['message_id'], true);
+    } elseif (preg_match('/^\/minetest(?:\@LLUbot)?$/', $command, $matches)) {
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+          CURLOPT_RETURNTRANSFER => 1,
+          CURLOPT_URL => 'http://servers.minetest.net/list?proto_version_min=1&proto_version_max=30',
+        ));
+        $resp = curl_exec($curl);
+        curl_close($curl);
+        $resp = json_decode($resp, true);
+        $data = false;
+        foreach ($resp['list'] as $server) {
+          if ($server['address'] == 'minetest.librelabucm.org') {
+            $data = $server;
+          }
+        }
+        if (!$data) {
+          sendMsg($chat_id, "No data found... :(", null, $update['message_id'], true);
+          exit();
+        }
+        $gameid = ucwords($data['gameid']);
+        $damage = $data['damage']  ? 'enabled' : 'disabled';
+        $mods = count($data['mods']);
+        $msg = <<<EOT
+🖥🎮 <b>Minetest</b> 📦⛏
+
+<a href="{$data['url']}">{$data['url']} ({$data['address']}:{$data['port']})</a>
+{$data['description']}
+🔅Game Mode: $gameid
+🔅Damage: $damage
+🔅Uptime: ~ {$data['uptime']}
+🔅Version: {$data['version']}
+🔅Mods: $mods
+🔅Players: {$data['clients']}/{$data['clients_max']}
+
+EOT;
+        $msg .= "\nPlayers:\n";
+        foreach ($data['clients_list'] as $client) {
+          $msg .= "  👤$client\n";
+        }
+        sendMsg($chat_id, $msg, null, $update['message_id'], true);
     }
 
   }

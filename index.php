@@ -346,6 +346,28 @@ EOT;
           $msg .= "  👤$client\n";
         }
         sendMsg($chat_id, $msg, null, $update['message_id'], true);
+    } elseif (preg_match('/^\/propuestas(?:\@LLUbot)?$/', $command, $matches)) {
+        $propuestasCategoryId = 8;
+        $baseURL = 'https://foro.librelabucm.org';
+
+        $r = file_get_contents("$baseURL/c/$propuestasCategoryId.json");
+        $r = json_decode($r, true);
+
+        $msg = "<a href='$baseURL/c/$propuestasCategoryId'>Propuestas</a>: \n\n";
+        foreach($r['topic_list']['topics'] as $topic) {
+            $topicInfo = file_get_contents(sprintf('%s/t/%d.json', $baseURL, $topic['id'] ));
+            $topicInfo = json_decode($topicInfo, true);
+            $posts = [];
+            foreach($topicInfo['post_stream']['posts'] as $post) {
+               $posts[$post['id']] = $post;
+            }
+            //$stream = $topicInfo['post_stream']['stream'];
+            //foreach($stream as $postid) {
+            //}
+            $author = $topicInfo['details']['created_by']['username'];
+            $msg .= sprintf("%s <a href='%s/t/%s/%d'>%s</a> | By: <a href='%s/u/%s'>%s</a> | ❤️%d \n", $topicInfo['closed'] ? '📕' : '📖', $baseURL, $topicInfo['slug'], $topicInfo['id'], $topicInfo['title'], $baseURL, $author, $author, $topicInfo['like_count']);
+        }
+        sendMsg($chat_id, $msg, null, $update['message_id'], true);
     }
 
   }

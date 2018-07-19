@@ -121,17 +121,17 @@ if (isset($update['message'])) {
       $textToSend .= "\n Grupos de trabajo: \n";
       $textToSend .= "   ✔️ <a href=\"https://t.me/joinchat/Btutqwglu5cmJFLPG0L6wg\">Rompiendo Hardware</a>\n";
       $textToSend .= "   ✔️ <a href=\"https://t.me/joinchat/FrBcTE5WWmanP2spgTZ5HA\">Install Parties</a>\n";
-      $textToSend .= "   ✔️ <a href=\"https://t.me/CryptoParty\">CryptoParty</a>\n";
       $textToSend .= "   ✔️ <a href=\"https://t.me/joinchat/FrBcTEtTEXuzzsYnkX1mjA\">Telegram Bots</a>\n";
-      $textToSend .= "   ✔️ <a href=\"https://t.me/joinchat/Ar4agkCACYELE5TZ5AWtAA\">Security Team</a>\n";
+      $textToSend .= "   ✔️ <a href=\"https://t.me/joinchat/Apxn5UCACYFe4R1JTfrTLg\">Security Team</a>\n";
       $textToSend .= "   ✔️ <a href=\"https://t.me/joinchat/FrBcTE6XitNjwcP4tiMUzA\">Liberar FDI</a>\n";
-      $textToSend .= "   ✔️ <a href=\"https://t.me/joinchat/FrBcTFKj1XkSF9He68d2gA\">Minecraft</a>\n";
+      $textToSend .= "   ✔️ <a href=\"https://t.me/joinchat/FrBcTFKj1XkSF9He68d2gA\">Open Games</a>\n";
       $textToSend .= "   ✔️ <a href=\"https://t.me/joinchat/Apxn5U_5CTcd6qVEyMpffw\">SCI</a>\n";
       $textToSend .= "   ✔️ <a href=\"https://t.me/joinchat/FrBcTESo5EJNlv8Wh-AV_Q\">Debates LibreLab</a>\n";
       $textToSend .= "\n Otros: \n";
       $textToSend .= "   ❔ <a href=\"https://t.me/joinchat/AAAAAEAvkZUS4P0UV5MdCQ\">Grupo contacto externo</a>\n";
       $textToSend .= "   😸 <a href=\"https://t.me/LibreLab\">Dudas privadas a @LibreLab</a>\n";
       $textToSend .= "   🤖 <a href=\"https://t.me/LLUbot\">Bot @LLUbot</a>\n";
+      $textToSend .= "   🤖 <a href=\"https://t.me/@LLUDiscourseBot\">Bot @LLUDiscourseBot</a>\n";
       //$textToSend .= "   🎲 #<a href=\"https://t.me/joinchat/AC_OwECMttsmiW5vfZjo7g\">Random</a>(offtopic)\n";
       sendMsg($update['chat']['id'], $textToSend, false, $update['message_id'], true);
     }

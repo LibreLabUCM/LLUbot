@@ -53,8 +53,9 @@ if (isset($update['message'])) {
       sendMsg($update['chat']['id'], "Welcome " . $name . " !" . 
               "\n\nPor favor, ten en cuenta que para participar en este chat debes cumplir nuestro código de conducta:\n" .
               "https://librelabucm.org/codigo_de_conducta" .
-              "\n\n¿Quieres unirte a la lista de correo de LibreLabUCM?\n" .
-              "https://groups.google.com/forum/#!forum/librelabucm/join",
+              "\n\n¿Aún no eres socio? Regístrate en\n" .
+              "https://account.librelabucm.org/register.php\n" .
+              "¡No te olvides de apuntarte al newsletter!\n",
               false, $update['message_id'], true);
     }
     // Solo para el chat de LibreLab:

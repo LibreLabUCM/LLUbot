@@ -87,6 +87,7 @@ if (isset($update['message'])) {
     } elseif ($command == "/help") {
       sendMsg($update['chat']['id'], "
 /help - Lista de comandos
+/calendario - Link al calendario de actividades
 /mailinglist - Link a la lista de correo
 /web - Link a la web
 /email - El e-mail de la asociación
@@ -110,7 +111,7 @@ if (isset($update['message'])) {
       sendMsg($update['chat']['id'], "librelab@ucm.es", false, $update['message_id']);
     }
     elseif ($command == "/calendario" || $command == "/calendar") {
-      sendMsg($update['chat']['id'], "<a href=\"https://calendar..librelabucm.org\">Calendario</a> de eventos y actividades", false, 
+      sendMsg($update['chat']['id'], "<a href=\"https://calendar.librelabucm.org\">Calendario</a> de eventos y actividades", false, 
 $update['message_id']);
     }
     elseif ($command == "/web") {

@@ -109,6 +109,10 @@ if (isset($update['message'])) {
     elseif ($command == "/email" || $command == "/correo") {
       sendMsg($update['chat']['id'], "librelab@ucm.es", false, $update['message_id']);
     }
+    elseif ($command == "/calendario" || $command == "/calendar") {
+      sendMsg($update['chat']['id'], "<a href=\"https://calendar..librelabucm.org\">Calendario</a> de eventos y actividades", false, 
+$update['message_id']);
+    }
     elseif ($command == "/web") {
       sendMsg($update['chat']['id'], "<a href=\"www.librelabucm.org\">LLu Web</a>", false, $update['message_id']);
     }

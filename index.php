@@ -103,6 +103,7 @@ if (isset($update['message'])) {
 /documentales - documentales recomendados
 /pelis - peliculas recomendadas
 /otros - otras cosas recomendadas
+/hack4fun - para el hackea como si estuvieras en primero
 ", false, $update['message_id']);
     } elseif ($command == "/mailinglist" || $command == "/listacorreo") {
       sendMsg($update['chat']['id'], "<a href=\"https://groups.google.com/forum/#!forum/librelabucm/join\">Lista de correo</a>", false, $update['message_id']);
@@ -150,6 +151,16 @@ $update['message_id']);
     }
     elseif ($command == "/github") {
       sendMsg($update['chat']['id'], "<a href=\"https://github.com/librelabucm\">Nuestro GitHub!</a>", false, $update['message_id']);
+    }
+    elseif ($command == "/hack4fun" || $command == "/hack") {
+      $textToSend = "Hi, User...\n";
+      sendMsg($update['chat']['id'], $textToSend, false, $update['message_id'], true);
+      $textToSend = "The Matrix has you...\n";
+      sendMsg($update['chat']['id'], $textToSend, false, $update['message_id'], true);
+      $textToSend = "Follow the LibreLabUCM's flag.\n";
+      sendMsg($update['chat']['id'], $textToSend, false, $update['message_id'], true);
+      $textToSend = "Knock, knock, Neo. ¿Una hamburguesa de pollo campeón?.\n";
+      sendMsg($update['chat']['id'], $textToSend, false, $update['message_id'], true);
     }
     elseif (preg_match('/^\/delrecom\s([0-9]+)/', $command, $matches)) {
       if ($chat_id === -1001088410143 || $chat_id === 380656716) {

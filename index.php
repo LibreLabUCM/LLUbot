@@ -55,7 +55,7 @@ if (isset($update['message'])) {
               "https://librelabucm.org/codigo_de_conducta" .
               "\n\n¿Aún no eres socio? Regístrate en\n" .
               "https://account.librelabucm.org/register.php\n" .
-              "¡No te olvides de apuntarte al newsletter!\n",
+              "¡Te invitamos a pasarte por el Despacho 120!\n",
               false, $update['message_id'], true);
     }
     // Solo para el chat de LibreLab:
@@ -83,27 +83,30 @@ if (isset($update['message'])) {
     $command = ($commandWithoutLLubot)? $commandWithoutLLubot : $command;
 
     if ($command == "/start") {
-      sendMsg($update['chat']['id'], "Hola! Somos LibreLabUCM, la Asociación de Alumnos de Software y Cultura Libre de la Facultad de Informática de la Universidad Complutense de Madrid.\nCon este bot podrás acceder a nuestros /grupos y acceder a otros servicios que ofrecemos. \nPuedes ver mis comandos con /help\n", false, $update['message_id']);
+      sendMsg($update['chat']['id'], "Hola!\n\nSomos LibreLabUCM, la Asociación de Alumnos de Software y Cultura Libre de la Facultad de Informática de la Universidad Complutense de Madrid.\n\nCon este bot podrás acceder a nuestros /grupos y acceder a otros servicios que ofrecemos. \nPuedes ver mis comandos con /help 🙈\n", false, $update['message_id']);
     } elseif ($command == "/help") {
       sendMsg($update['chat']['id'], "
-/help - Lista de comandos
+
+⭐ <b>¿Quieres obtener información sobre algunas cosillas?</b>
+
 /calendario - Link al calendario de actividades
 /mailinglist - Link a la lista de correo
 /web - Link a la web
 /email - El e-mail de la asociación
-/grupos - Links a nuestros grupos de trabajo
 /github - Link a nuestro github
+
+⭐ <b>¿Quieres entrar en alguno de nuestros grupos?</b>
+
+Solo tienes que ejecutar el comando /grupos
+
+⭐ <b>¿Te molaría realizar algún taller o proponer una actividad?</b>
+
 /forms - Links a nuestros formularios
+
+⭐ <b> Otros comandos que pueden interesarte </b>
+
 /trinity - Link a Trinity y podio
-/redeclipse - Información sobre el servidor de RedEclipse de LibreLabUCM
-/recomendar &lt;\"nombre\"&gt; &lt;categoria&gt; [URI] [\"comentario\"] - Recomendar
-/libros - libros recomendados
-/articulos - artículos recomendados
-/videos - videos recomendados
-/documentales - documentales recomendados
-/pelis - peliculas recomendadas
-/otros - otras cosas recomendadas
-/hack4fun - para el hackea como si estuvieras en primero
+
 ", false, $update['message_id']);
     } elseif ($command == "/mailinglist" || $command == "/listacorreo") {
       sendMsg($update['chat']['id'], "<a href=\"https://groups.google.com/forum/#!forum/librelabucm/join\">Lista de correo</a>", false, $update['message_id']);
@@ -119,20 +122,12 @@ $update['message_id']);
       sendMsg($update['chat']['id'], "<a href=\"www.librelabucm.org\">LLu Web</a>", false, $update['message_id']);
     }
     elseif ($command == "/grupos" || $command == "/groups") {
-      $textToSend = "<a href=\"https://t.me/LLUchat\">Grupo LLU</a>\n";
-      $textToSend .= "<a href=\"https://t.me/librelabucm\">Canal de noticias de LLU</a>\n";
-      $textToSend .= "\n Comisiones: \n";
-      $textToSend .= "   🔅 Servidor\n";
-      $textToSend .= "   🔅 Web\n";
-      $textToSend .= "   🔅 Comunicación\n";
+      $textToSend = "\n Para acceder al grupo general: <a href=\"https://t.me/LLUchat\">Grupo LLU</a>\n";
+      $textToSend .= "\nPara estar informado sobre las actividades que realizamos: <a href=\"https://t.me/librelabucm\">Canal de noticias de LLU</a>\n";
       $textToSend .= "\n Grupos de trabajo: \n";
       $textToSend .= "   ✔️ <a href=\"https://t.me/joinchat/Btutqwglu5cmJFLPG0L6wg\">Rompiendo Hardware</a>\n";
-      $textToSend .= "   ✔️ <a href=\"https://t.me/joinchat/FrBcTE5WWmanP2spgTZ5HA\">Install Parties</a>\n";
-      $textToSend .= "   ✔️ <a href=\"https://t.me/joinchat/FrBcTEtTEXuzzsYnkX1mjA\">Telegram Bots</a>\n";
       $textToSend .= "   ✔️ <a href=\"https://t.me/joinchat/Apxn5UCACYFe4R1JTfrTLg\">Security Team</a>\n";
       $textToSend .= "   ✔️ <a href=\"https://t.me/joinchat/FrBcTE6XitNjwcP4tiMUzA\">Liberar FDI</a>\n";
-      $textToSend .= "   ✔️ <a href=\"https://t.me/joinchat/FrBcTFKj1XkSF9He68d2gA\">Open Games</a>\n";
-      $textToSend .= "   ✔️ <a href=\"https://t.me/joinchat/Apxn5U_5CTcd6qVEyMpffw\">SCI</a>\n";
       $textToSend .= "   ✔️ <a href=\"https://t.me/joinchat/FrBcTESo5EJNlv8Wh-AV_Q\">Debates LibreLab</a>\n";
       $textToSend .= "\n Otros: \n";
       $textToSend .= "   ❔ <a href=\"https://t.me/joinchat/AAAAAEAvkZUS4P0UV5MdCQ\">Grupo contacto externo</a>\n";
@@ -144,7 +139,7 @@ $update['message_id']);
     }
     elseif ($command == "/forms" || $command == "/formularios") {
       $textToSend = "¿Te gustaría proponer un taller, una charla, o un curso?\n";
-      $textToSend .= " 📝 <a href=\"https://goo.gl/forms/VyAXiFfgfDZIj5w43\">¡Coméntanos tus intereses!</a>\n";
+      $textToSend .= "Pásate por el Despacho 120 que estaremos más que encantados de recibirte o rellena el formulario y 📝 <a href=\"https://goo.gl/forms/VyAXiFfgfDZIj5w43\">¡Coméntanos tus intereses!</a>\n";
       $textToSend .= "\n\n¿Te gustaría realizar alguna actividad en la facultad? Nosotros desde LibreLabUCM podemos ayudarte a organizarlo, reservar aulas, pedir material, ...\n";
       $textToSend .= " 📝 <a href=\"https://goo.gl/forms/OuNAEh5qaXCLUQbA3\">¡Coméntanos tu actividad!</a>\n";
       sendMsg($update['chat']['id'], $textToSend, false, $update['message_id'], true);
@@ -155,10 +150,9 @@ $update['message_id']);
     elseif ($command == "/hack4fun" || $command == "/hack") {
       if ($update['chat']['type'] == 'private') {
         $text = [
-          "Hi, User...",
-          "The Matrix has you...",
-          "Follow the LibreLabUCM's flag.",
-          "Knock, knock, Neo. ¿Una hamburguesa de pollo campeón?.",
+          "Hola, terrícola...",
+          "Hemos recibido tu señal desde nuestro planeta....",
+          "¿Buscas más información sobre el taller? ¡Pregunta en el Despacho 120!",
         ];
         foreach ($text as $t) {
           sendMsg($update['chat']['id'], $t, false, $update['message_id'], true);
@@ -176,7 +170,7 @@ $update['message_id']);
           sendMsg($chat_id, "Error");
       }
     }
-    elseif (($category = getCategory($command))) {
+    /*elseif (($category = getCategory($command))) {
       $query = "SELECT id, name, URI, comment FROM RECOMMENDATIONS WHERE category = '$category';";
       //~ $results = $pdo->query($query) or die('db error');
       $results = $db->query($query) or die('db error');
@@ -199,9 +193,9 @@ $update['message_id']);
         sendMsg($chat_id, "No hay todavía ninguna recomendación para $category");
       else
         sendMsg($chat_id, $ret, null, "0", true);
-    }
+    }*/
     # format: /recommend "<name>" <category> [URI] "[comment]"
-    elseif (preg_match('/^\/recom/', $command) === 1 ) {
+    /*elseif (preg_match('/^\/recom/', $command) === 1 ) {
       $cmd = $update['text'];
       // Extract arguments from command:
       $cmd_re = preg_match(
@@ -242,7 +236,7 @@ $update['message_id']);
         if ($comment) $msg .= "  Comentarios: $comment\n";
         sendMsg($chat_id, $msg, null, $update['message_id'], true);
       }
-    } elseif (preg_match('/^\/trinity(?:\@LLUbot)?\s?([0-9]+)?$/', $command, $matches)) {
+    } */elseif (preg_match('/^\/trinity(?:\@LLUbot)?\s?([0-9]+)?$/', $command, $matches)) {
         $trinityBaseUrl = 'https://trinity.librelabucm.org';
         $curl = curl_init();
         curl_setopt_array($curl, array(
@@ -268,7 +262,7 @@ $update['message_id']);
           $msg .= "   {$thisemoji}".str_pad($resp['standings'][$i]['score'], 4, ' ', STR_PAD_LEFT)." | \t<a href='$trinityBaseUrl/user?id={$resp['standings'][$i]['user_id']}'>{$resp['standings'][$i]['team']}</a>\n";
         }
         sendMsg($chat_id, $msg, null, $update['message_id'], true);
-    } elseif (preg_match('/^\/redeclipse(?:\@LLUbot)?$/', $command, $matches)) {
+    }/* elseif (preg_match('/^\/redeclipse(?:\@LLUbot)?$/', $command, $matches)) {
         $curl = curl_init();
         curl_setopt_array($curl, array(
           CURLOPT_RETURNTRANSFER => 1,
@@ -327,7 +321,7 @@ EOT;
           $msg .= "\n";
         }
         sendMsg($chat_id, $msg, null, $update['message_id'], true);
-    } elseif (preg_match('/^\/minetest(?:\@LLUbot)?$/', $command, $matches)) {
+    }  elseif (preg_match('/^\/minetest(?:\@LLUbot)?$/', $command, $matches)) {
         $curl = curl_init();
         curl_setopt_array($curl, array(
           CURLOPT_RETURNTRANSFER => 1,
@@ -367,7 +361,7 @@ EOT;
           $msg .= "  👤$client\n";
         }
         sendMsg($chat_id, $msg, null, $update['message_id'], true);
-    } elseif (preg_match('/^\/propuestas(?:\@LLUbot)?$/', $command, $matches)) {
+    } */elseif (preg_match('/^\/propuestas(?:\@LLUbot)?$/', $command, $matches)) {
         $propuestasCategoryId = 8;
         $baseURL = 'https://foro.librelabucm.org';
 

@@ -1,7 +1,7 @@
 <?php
 ini_set('display_errors','1'); error_reporting(E_ALL);
 date_default_timezone_set('Europe/Madrid');
-
+<!-- Este código está desactualizado. El código del bot actual se podrá encontrar en el repositorio de GitLab. -->
 include('config.php');
 include('utils.php');
 include('database.php');

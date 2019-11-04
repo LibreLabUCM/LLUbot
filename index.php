@@ -121,6 +121,9 @@ $update['message_id']);
     elseif ($command == "/web") {
       sendMsg($update['chat']['id'], "<a href=\"www.librelabucm.org\">LLu Web</a>", false, $update['message_id']);
     }
+    elseif ($command == "/sdr") {
+      sendMsg($update['chat']['id'], "¡Te acabas de apuntar al taller de SDR del día 7 de noviembre! #LLUSecurityTeam", false, $update['message_id']);
+    }
     elseif ($command == "/grupos" || $command == "/groups") {
       $textToSend = "\n Para acceder al grupo general: <a href=\"https://t.me/LLUchat\">Grupo LLU</a>\n";
       $textToSend .= "\nPara estar informado sobre las actividades que realizamos: <a href=\"https://t.me/librelabucm\">Canal de noticias de LLU</a>\n";
